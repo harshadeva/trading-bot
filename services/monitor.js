@@ -51,6 +51,9 @@ async function monitorMarket(symbol,investingAmount) {
         "Error monitoring market:",
         error.response?.data || error.message
       );
+      if(error.response.code == -2010){
+      getAccountBalance();
+      }
     }
   }, 5000); // Check every 5 seconds
 }
