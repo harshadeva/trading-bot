@@ -73,7 +73,7 @@ async function immediateSell(symbol,quantity) {
         type: 'LIMIT',
         timeInForce: 'GTC',
         quantity,
-        price: sellPrice.toFixed(2),
+        price: price.toFixed(2),
         timestamp: Date.now(),
       };
     
