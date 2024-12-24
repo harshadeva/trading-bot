@@ -10,16 +10,10 @@ async function monitorMarket(symbol,investingAmount) {
 
   setInterval(async () => {
     try {
-      logMessage('Monitoring..');
       const currentPrice = await getMarketPrice(symbol);
-      console.log('currentPrice',currentPrice);
       const activeBuy = await hasActiveBuy(symbol);
-      console.log('activeBuy',activeBuy);
       const qty = investingAmount / currentPrice;
-      console.log('qty',qty);
       const quantity = Number(qty.toFixed(5));
-      console.log('quantity',quantity);
-      // getAccountBalance();
 
       if (activeBuy) {
         const buyPrice = currentPrice;
