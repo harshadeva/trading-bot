@@ -53,7 +53,7 @@ async function monitorMarket(symbol,investingAmount) {
       );
       if(error.response?.data.code == -2010){
       getAccountBalance();
-      immediateSell('EOSUSDT', 1000);
+      immediateSell('SNTUSDT', 10000);
       }
     }
   }, 5000); // Check every 5 seconds
