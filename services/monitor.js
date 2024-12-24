@@ -20,7 +20,7 @@ async function monitorMarket(symbol,investingAmount) {
         const sellValue = currentPrice * quantity;
         const buyValue = buyPrice * quantity;
         const sellFee = sellValue * TRANSACTION_FEE_PERCENT;
-        const grossProfit = sellValue - activeBuy.buy_price;
+        const grossProfit = sellValue - activeBuy.buy_amount;
         const profit = grossProfit - sellFee;
 
         console.log(
