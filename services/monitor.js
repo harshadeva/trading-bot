@@ -1,6 +1,7 @@
 const { getMarketPrice } = require("./market");
 const { placeSellOrder, placeBuyOrder } = require("./order");
 const { hasActiveBuy } = require("./database");
+const { logMessage } = require('../utils/logger');
 
 // Monitor the market and execute trades based on thresholds
 async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
@@ -8,7 +9,9 @@ async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
 
   setInterval(async () => {
     try {
+      logMessage('Monitoring..');
       const currentPrice = await getMarketPrice(symbol);
+      console.log('currentPrice',currentPrice);
       const activeBuy = await hasActiveBuy(symbol);
 
       if (activeBuy) {
