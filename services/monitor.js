@@ -5,7 +5,7 @@ const { logMessage } = require("../utils/logger");
 const { getAccountBalance } = require("./account");
 
 // Monitor the market and execute trades based on thresholds
-async function monitorMarket(symbol, investingAmount) {
+async function monitorMarket(symbol, investingAmount,buyingMaxPrice) {
   const TRANSACTION_FEE_PERCENT = 0.001; // Binance transaction fee (0.1%)
 
   setInterval(async () => {
@@ -51,6 +51,10 @@ async function monitorMarket(symbol, investingAmount) {
           !lastRecord ||
           new Date() - new Date(lastRecord.timestamp) >  60 * 60 * 1000
         ) {
+          if(currentPrice > buyingMaxPrice){
+            console.log(`Current price is above the maximum buying price. Waiting.`);
+            return;
+          }
           console.log(`Placing new BUY order.`);
           await placeBuyOrder(symbol, quantity, currentPrice);
         }
