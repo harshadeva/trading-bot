@@ -20,6 +20,16 @@ async function hasActiveBuy(symbol) {
   return rows.length > 0 ? rows[0] : null;
 }
 
+async function getLastRecord(symbol) {
+  const query = `
+      SELECT * FROM trades
+      WHERE symbol = $1 AND side = 'BUY' AND status = 'SOLD' ORDER BY id DESC
+      LIMIT 1
+    `;
+  const { rows } = await db.query(query, [symbol]);
+  return rows.length > 0 ? rows[0] : null;
+}
+
 // Update Sell Trade
 async function updateSellTrade(buyRecord, sellPrice, transactionFee, profit) {
   const query = `
@@ -27,8 +37,9 @@ async function updateSellTrade(buyRecord, sellPrice, transactionFee, profit) {
       SET sell_price = $1,
           transaction_fee = $2,
           profit = $3,
-          status = 'SOLD'
-          sell_amount = $5
+          status = 'SOLD',
+          sell_amount = $5,
+          timestamp = NOW(),
       WHERE id = $4;
     `;
 
@@ -46,5 +57,6 @@ async function updateSellTrade(buyRecord, sellPrice, transactionFee, profit) {
 module.exports = {
   createByTrade,
   hasActiveBuy,
+  getLastRecord,
   updateSellTrade,
 };
