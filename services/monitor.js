@@ -36,8 +36,9 @@ async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
         }
       }
 
-      if (!activeBuy && currentPrice <= buyThreshold) {
-        console.log(`Price below ${buyThreshold}, placing a BUY order.`);
+      // if (!activeBuy && currentPrice <= buyThreshold) {
+      if (!activeBuy) {
+        console.log(`Price is ${buyThreshold}, placing a BUY order.`);
         await placeBuyOrder(symbol, quantity, currentPrice);
       }
     } catch (error) {
