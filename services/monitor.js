@@ -2,9 +2,10 @@ const { getMarketPrice } = require("./market");
 const { placeSellOrder, placeBuyOrder } = require("./order");
 const { hasActiveBuy } = require("./database");
 const { logMessage } = require('../utils/logger');
+const { getAccountBalance } = require('./account');
 
 // Monitor the market and execute trades based on thresholds
-async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
+async function monitorMarket(symbol,investingAmount) {
   const TRANSACTION_FEE_PERCENT = 0.001; // Binance transaction fee (0.1%)
 
   setInterval(async () => {
@@ -14,6 +15,11 @@ async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
       console.log('currentPrice',currentPrice);
       const activeBuy = await hasActiveBuy(symbol);
       console.log('activeBuy',activeBuy);
+      const qty = investingAmount / currentPrice;
+      console.log('qty',qty);
+      const quantity = Number(qty.toFixed(5));
+      console.log('quantity',quantity);
+      // getAccountBalance();
 
       if (activeBuy) {
         const buyPrice = currentPrice;
@@ -36,9 +42,8 @@ async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
         }
       }
 
-      // if (!activeBuy && currentPrice <= buyThreshold) {
       if (!activeBuy) {
-        console.log(`Price is ${buyThreshold}, placing a BUY order.`);
+        console.log(`Placing new BUY order.`);
         await placeBuyOrder(symbol, quantity, currentPrice);
       }
     } catch (error) {
