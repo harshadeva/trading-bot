@@ -13,6 +13,7 @@ async function monitorMarket(symbol, buyThreshold, sellThreshold, quantity) {
       const currentPrice = await getMarketPrice(symbol);
       console.log('currentPrice',currentPrice);
       const activeBuy = await hasActiveBuy(symbol);
+      console.log('activeBuy',activeBuy);
 
       if (activeBuy) {
         const buyPrice = currentPrice;
