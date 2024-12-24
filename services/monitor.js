@@ -29,7 +29,7 @@ async function monitorMarket(symbol,investingAmount) {
         const profit = sellValue - buyValue - sellFee;
 
         console.log(
-          `Buy Price: $${buyPrice}, Current Price: $${currentPrice}, Profit After Fee: $${profit}`
+          `Buy Price: $${activeBuy.buy_price}, Current Price: $${currentPrice}, Profit After Fee: $${profit}`
         );
 
         // Check if the profit exceeds a certain threshold
