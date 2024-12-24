@@ -49,7 +49,7 @@ async function monitorMarket(symbol, investingAmount) {
         const lastRecord = await getLastRecord(symbol);
         if (
           !lastRecord ||
-          new Date() - new Date(lastRecord.timestamp) > 60 * 60 * 1000
+          new Date() - new Date(lastRecord.timestamp) >  60 * 60 * 1000
         ) {
           console.log(`Placing new BUY order.`);
           await placeBuyOrder(symbol, quantity, currentPrice);

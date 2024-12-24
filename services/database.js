@@ -39,7 +39,7 @@ async function updateSellTrade(buyRecord, sellPrice, transactionFee, profit) {
           profit = $3,
           status = 'SOLD',
           sell_amount = $5,
-          timestamp = NOW(),
+          timestamp = NOW()
       WHERE id = $4;
     `;
 
