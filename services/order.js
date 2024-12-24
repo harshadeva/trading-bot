@@ -1,5 +1,6 @@
 const { axiosInstance, signQuery } = require('../config/binance');
 const { createByTrade,updateSellTrade } = require('./database');
+const { getMarketPrice } = require('./market');
 
 // Place a buy order
 async function placeBuyOrder(symbol, quantity, price) {
