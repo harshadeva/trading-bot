@@ -64,8 +64,28 @@ async function getSymbolFilters(symbol) {
   };
 }
 
+async function immediateSell(symbol,quantity) {
+    getMarketPrice(symbol).then(async (price) => {
+      const queryParams = {
+        symbol,
+        side: 'SELL',
+        type: 'LIMIT',
+        timeInForce: 'GTC',
+        quantity,
+        price: sellPrice.toFixed(2),
+        timestamp: Date.now(),
+      };
+    
+      const signedQuery = signQuery(queryParams);
+    
+      const response = await axiosInstance.post(`/v3/order?${signedQuery}`);
+      return response.data;
+    });
+}
+
 module.exports = {
   placeBuyOrder,
   placeSellOrder,
-  getSymbolFilters
+  getSymbolFilters,
+  immediateSell
 };

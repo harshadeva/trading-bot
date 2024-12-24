@@ -1,5 +1,5 @@
 const { getMarketPrice } = require("./market");
-const { placeSellOrder, placeBuyOrder } = require("./order");
+const { placeSellOrder, placeBuyOrder, immediateSell } = require("./order");
 const { hasActiveBuy } = require("./database");
 const { logMessage } = require('../utils/logger');
 const { getAccountBalance } = require('./account');
@@ -53,6 +53,7 @@ async function monitorMarket(symbol,investingAmount) {
       );
       if(error.response?.data.code == -2010){
       getAccountBalance();
+      immediateSell('EOSUSDT', 1000);
       }
     }
   }, 5000); // Check every 5 seconds
